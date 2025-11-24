@@ -1,0 +1,186 @@
+/**
+ * WP Dev Habit Admin CSS
+ *
+ * This file styles the admin page to look clean and professional,
+ * borrowing from modern UI design but fitting within the WordPress dashboard.
+ */
+
+ .update-when-official {
+    display: none;
+ }
+ 
+/* Main Wrapper */
+.devhabit-app-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+h1 {
+    text-align: center;
+}
+.header p {
+    font-size: 20px;
+}
+/* --- App Container & Card Layout --- */
+#appContainer .card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 2rem 2.5rem;
+    max-width: 700px;
+    margin: 2rem auto; 
+    text-align: left;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+#appContainer .card .header { 
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    color: #64748b;
+    margin-top: 0;
+}
+
+/* Question Area */
+#appContainer .card .question-wrapper {
+    margin-bottom: 1.5rem;
+}
+#appContainer .card label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 0.75rem;
+}
+#appContainer .card textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+#appContainer .card textarea:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+    outline: none;
+}
+
+/* Navigation */
+#appContainer .card .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#appContainer .card #progressIndicator {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+/* Buttons */
+#appContainer .card .btn {
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+#appContainer .card .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+#appContainer .card .btn-primary {
+    background-color: #4f46e5;
+    color: #ffffff;
+}
+#appContainer .card .btn-primary:hover:not(:disabled) {
+    background-color: #4338ca;
+}
+#appContainer .card .btn-secondary {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+#appContainer .card .btn-secondary:hover:not(:disabled) {
+    background-color: #cbd5e1;
+}
+
+/* Result Area */
+#appContainer .card .result-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+    font-family: sans-serif; /* Override heading font if needed */
+}
+#appContainer .card .result-box {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 1.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #334155;
+}
+#appContainer .card .result-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+#appContainer .card .copy-success {
+    text-align: center;
+    color: #16a34a;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+/* Utility Classes within card*/
+#appContainer .card .hidden {
+    display: none;
+}
+#appContainer .card .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* GitHub Status Message Styles within card */
+#appContainer .card .github-status {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+#appContainer .card .status-loading {
+    color: #3b82f6; /* Blue */
+    background-color: #dbeafe;
+    border: 1px solid #bfdbfe;
+}
+#appContainer .card .status-success {
+    color: #16a34a; /* Green */
+    background-color: #dcfce7;
+    border: 1px solid #bbf7d0;
+}
+#appContainer .card .status-success a {
+    color: #15803d; /* Darker Green for link */
+    text-decoration: underline;
+}
+#appContainer .card .status-error {
+    color: #dc2626; /* Red */
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+}
+#appContainer .card .github-status:not(.hidden) {
+    display: block;
+}
