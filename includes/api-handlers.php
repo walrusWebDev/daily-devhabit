@@ -93,7 +93,7 @@ function ddh_send_to_github( $content, $options ) {
 
     // Format Data for GitHub
     $date_slug = date('Y-m-d');
-    $file_name = $date_slug . '-log.md';
+    $file_name = $date_slug . '-' . date('H-i-s') . '-log.md';
     $full_path = trim( $path, '/' ) . '/' . $file_name;
     
     // API URL

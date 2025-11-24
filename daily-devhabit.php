@@ -26,8 +26,6 @@ require_once DDH_PLUGIN_DIR . 'includes/api-handlers.php';
 
 // Enqueue Scripts (Global Asset Loading)
 function ddh_enqueue_admin_scripts( $hook ) {
-    // DEBUG: Print the hook name to the browser console so we can see it
-    echo "<script>console.log('Current Admin Page Hook:', '" . $hook . "');</script>";
     if ( 'toplevel_page_daily-devhabit' !== $hook && 'daily-devhabit-log_page_daily-devhabit-settings' !== $hook ) {
         return;
     }
@@ -47,10 +45,30 @@ function ddh_enqueue_admin_scripts( $hook ) {
         DDH_VERSION
     );
 
+    $options = get_option( 'ddh_integration_options' );
+    $mode = isset( $options['connection_mode'] ) ? $options['connection_mode'] : 'github';
+    $raw_questions = isset( $options['custom_questions'] ) ? $options['custom_questions'] : '';
+    $questions_array = [];
+
+    if ( ! empty( $raw_questions ) ) {
+        // Split by new line and filter empty lines
+        $lines = preg_split('/\r\n|\r|\n/', $raw_questions);
+        foreach ($lines as $line) {
+            if ( ! empty( trim( $line ) ) ) {
+                $questions_array[] = array(
+                    'prompt' => trim( $line ),
+                    'placeholder' => 'Type your answer here...'
+                );
+            }
+        }
+    }
+
     // Pass configuration to JS
     wp_localize_script('ddh-admin-js', 'ddh_ajax', array(
         'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce'    => wp_create_nonce('ddh_save_log_nonce') 
+        'nonce'    => wp_create_nonce('ddh_save_log_nonce'),
+        'mode'     => $mode,
+        'questions' => $questions_array 
     ));
 }
 add_action( 'admin_enqueue_scripts', 'ddh_enqueue_admin_scripts' );

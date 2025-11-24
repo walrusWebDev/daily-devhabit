@@ -48,15 +48,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Configuration ---
-    const questions = [
-        { prompt: "What was the main theme or project you focused on today?", placeholder: "e.g., Express server refactoring." },
-        { prompt: "What was the single biggest task you completed?", placeholder: "e.g., Implemented JWT authentication." },
-        { prompt: "Describe a significant challenge or problem you encountered.", placeholder: "e.g., Docker networking issues between containers." },
-        { prompt: "How did you approach solving it? What was your thought process?", placeholder: "e.g., Used docker logs to identify the crash, then fixed the connection string." },
-        { prompt: "What's something new you learned today? (A tool, a technique, a concept)", placeholder: "e.g., The 'Strategy Pattern' in PHP." },
-        { prompt: "What's one thing you're proud of from today's work?", placeholder: "e.g., Successfully connecting WordPress to Node.js." },
-        { prompt: "Based on today, what is the most important priority for tomorrow?", placeholder: "e.g., Building the Frontend Dashboard." }
-    ];
+    let questions = [];
+
+    // Check if PHP sent us custom questions
+    if (ddh_ajax.questions && ddh_ajax.questions.length > 0) {
+        questions = ddh_ajax.questions;
+    } else {
+        // Fallback Defaults
+        questions = [
+            { prompt: "How many hours did you code?", placeholder: "e.g., 5 hours." },
+            { prompt: "What was the main theme or project you focused on today?", placeholder: "e.g., Express server refactoring." },
+            { prompt: "What was the single biggest task you completed?", placeholder: "e.g., Implemented JWT authentication." },
+            { prompt: "Describe a significant challenge or problem you encountered.", placeholder: "e.g., Docker networking issues between containers." },
+            { prompt: "How did you approach solving it? What was your thought process?", placeholder: "e.g., Used docker logs to identify the crash, then fixed the connection string." },
+            { prompt: "What's something new you learned today? (A tool, a technique, a concept)", placeholder: "e.g., The 'Strategy Pattern' in PHP." },
+            { prompt: "What's one thing you're proud of from today's work?", placeholder: "e.g., Successfully connecting WordPress to Node.js." },
+            { prompt: "Based on today, what is the most important priority for tomorrow?", placeholder: "e.g., Building the Frontend Dashboard." }
+        ];
+    }
+    
 
     // --- State Management ---
     let currentQuestionIndex = 0;
@@ -67,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderApp() {
         const today = new Date();
         const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = today.toLocaleDateString(undefined, dateOptions); 
+        const formattedDate = today.toLocaleDateString(undefined, dateOptions);
+        const saveButtonText = (ddh_ajax.mode === 'cloud') ? 'Save to Cloud' : 'Save to GitHub';
 
         appContainer.innerHTML = `
             <div class="card">
@@ -89,8 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2 class="result-title">Your Daily Log</h2>
                     <div id="resultContainer" class="result-box"></div>
                     <div class="result-actions">
-                        <button id="copyBtn" class="btn btn-secondary">Copy to Clipboard</button>
-                        <button id="saveCloudBtn" class="btn btn-primary">Save to Cloud</button> <button id="restartBtn" class="btn btn-secondary">Start Over</button>
+                        <button id="copyBtn" class="btn btn-secondary">Copy to Clipboard</button>                        
+                        <button id="saveCloudBtn" class="btn btn-primary">${saveButtonText}</button>                         
+                        <button id="restartBtn" class="btn btn-secondary">Start Over</button>
                     </div>
                     <div id="copySuccessMessage" class="copy-success hidden">Copied successfully!</div>
                     <div id="saveStatusMessage" class="github-status hidden"></div>

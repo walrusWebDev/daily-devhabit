@@ -49,6 +49,14 @@ function ddh_settings_init() {
         'ddh_integration_section'
     );
 
+    add_settings_field(
+        'custom_questions',
+        __( 'Journal Prompts', 'daily-devhabit' ),
+        'ddh_render_questions_field',
+        'daily-devhabit-settings',
+        'ddh_integration_section'
+    );
+
     // --- FIELD GROUP: GITHUB ---
     add_settings_field( 'github_username', __( 'GitHub Username', 'daily-devhabit' ), 'ddh_render_gh_user_field', 'daily-devhabit-settings', 'ddh_integration_section' );
     add_settings_field( 'github_repo', __( 'Repository Name', 'daily-devhabit' ), 'ddh_render_gh_repo_field', 'daily-devhabit-settings', 'ddh_integration_section' );
@@ -144,6 +152,18 @@ function ddh_render_cloud_jwt_field() {
     <?php
 }
 
+function ddh_render_questions_field() {
+    $options = get_option( 'ddh_integration_options' );
+    // Default questions if none exist
+    $defaults = "What was the main theme or project today?\nHow many hours did you code?\nWhat technologies did you use (comma separated)?\nWhat was the biggest challenge?\nHow did you solve it?\nWhat did you learn today?";
+    
+    $value = isset( $options['custom_questions'] ) ? $options['custom_questions'] : $defaults;
+    ?>
+    <textarea name="ddh_integration_options[custom_questions]" rows="8" cols="50" class="large-text code"><?php echo esc_textarea( $value ); ?></textarea>
+    <p class="description">Enter one question per line. These will appear in the journaling app.</p>
+    <?php
+}
+
 /**
  * 4. Sanitization
  */
@@ -155,6 +175,9 @@ function ddh_sanitize_options( $input ) {
     $sanitized['github_pat']      = sanitize_text_field( $input['github_pat'] ); // Basic sanitization for tokens
     $sanitized['github_path']     = sanitize_text_field( $input['github_path'] );
     $sanitized['cloud_jwt']       = sanitize_text_field( $input['cloud_jwt'] );
+    if ( isset( $input['custom_questions'] ) ) {
+        $sanitized['custom_questions'] = implode( "\n", array_map( 'sanitize_text_field', explode( "\n", $input['custom_questions'] ) ) );
+    }
     return $sanitized;
 }
 
