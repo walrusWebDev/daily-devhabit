@@ -25,7 +25,6 @@ Unlike standard journaling plugins that trap data inside the WordPress database,
 ### Key Features
 * **Guided Prompting:** A structured interface that reduces cognitive load when documenting daily work.
 * **Cloud API Sync:** (New in v0.2.0) A built-in connector that pushes JSON-formatted log entries to a configured external REST API endpoint.
-* **Privacy & Compliance:** Includes a lightweight, zero-dependency Cookie Consent module to ensure GDPR/CCPA compliance for user data.
 * **Developer-Centric UI:** Clean, distraction-free interface built to fit into a technical workflow.
 
 ## Architecture & Engineering
