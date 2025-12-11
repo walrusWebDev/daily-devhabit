@@ -32,7 +32,6 @@ Unlike standard journaling plugins that trap data inside the WordPress database,
 
 * **REST API Integration:** The plugin utilizes `wp_remote_post()` with robust error handling to manage communication between the local WordPress environment and the remote cloud database.
 * **Data Security:** All API transactions are secured using WordPress nonces and sanitized input validation to prevent XSS and unauthorized data injection.
-* **Modular Design:** The Cookie Consent functionality is compartmentalized, allowing it to function independently of the logging logic.
 
 ## Installation
 
