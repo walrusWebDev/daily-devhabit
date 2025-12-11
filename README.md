@@ -1,10 +1,17 @@
 # Daily Dev Habit: Content Prompter
+
 **Contributors:** Lauren Bridges
+
 **Tags:** developer tools, rest api, cloud integration, daily log, productivity, journal
+
 **Requires at least:** 6.0
+
 **Tested up to:** 6.7
+
 **Requires PHP:** 8.0+
+
 **Stable tag:** 0.2.0
+
 **License:** GPLv2 or later
 
 A developer-focused productivity engine that leverages guided prompting and REST API integration to sync daily engineering logs to the cloud.
