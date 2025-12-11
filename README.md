@@ -60,7 +60,6 @@ If using "Local Mode," data is generated for your clipboard/local use. If "Cloud
 **Version 0.2.0**
 * **Architecture Change:** Renamed plugin to `daily-dev-habit`.
 * **New Feature:** Added REST API integration for cloud syncing.
-* **New Feature:** Integrated lightweight Cookie Consent banner.
 * **Update:** Refactored codebase for PHP 8.0+ compatibility.
 
 **Version 0.1.0**
