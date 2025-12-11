@@ -1,10 +1,17 @@
 # Daily Dev Habit: Content Prompter
+
 **Contributors:** Lauren Bridges
+
 **Tags:** developer tools, rest api, cloud integration, daily log, productivity, journal
+
 **Requires at least:** 6.0
+
 **Tested up to:** 6.7
+
 **Requires PHP:** 8.0+
+
 **Stable tag:** 0.2.0
+
 **License:** GPLv2 or later
 
 A developer-focused productivity engine that leverages guided prompting and REST API integration to sync daily engineering logs to the cloud.
@@ -18,7 +25,6 @@ Unlike standard journaling plugins that trap data inside the WordPress database,
 ### Key Features
 * **Guided Prompting:** A structured interface that reduces cognitive load when documenting daily work.
 * **Cloud API Sync:** (New in v0.2.0) A built-in connector that pushes JSON-formatted log entries to a configured external REST API endpoint.
-* **Privacy & Compliance:** Includes a lightweight, zero-dependency Cookie Consent module to ensure GDPR/CCPA compliance for user data.
 * **Developer-Centric UI:** Clean, distraction-free interface built to fit into a technical workflow.
 
 ## Architecture & Engineering
@@ -26,7 +32,6 @@ Unlike standard journaling plugins that trap data inside the WordPress database,
 
 * **REST API Integration:** The plugin utilizes `wp_remote_post()` with robust error handling to manage communication between the local WordPress environment and the remote cloud database.
 * **Data Security:** All API transactions are secured using WordPress nonces and sanitized input validation to prevent XSS and unauthorized data injection.
-* **Modular Design:** The Cookie Consent functionality is compartmentalized, allowing it to function independently of the logging logic.
 
 ## Installation
 
@@ -54,7 +59,6 @@ If using "Local Mode," data is generated for your clipboard/local use. If "Cloud
 **Version 0.2.0**
 * **Architecture Change:** Renamed plugin to `daily-dev-habit`.
 * **New Feature:** Added REST API integration for cloud syncing.
-* **New Feature:** Integrated lightweight Cookie Consent banner.
 * **Update:** Refactored codebase for PHP 8.0+ compatibility.
 
 **Version 0.1.0**
