@@ -43,14 +43,12 @@ function ddh_send_to_cloud( $content, $options ) {
         wp_send_json_error( 'Configuration Error: Cloud JWT is missing.', 400 );
     }
 
-    // Docker Networking: Using the Host IP to reach the Node Container
-    // In a real plugin, this URL would also be a setting field!
-    $api_url = 'http://10.0.0.221:3005/entries'; 
+    $api_url = defined('DDH_API_URL') ? DDH_API_URL . '/entries' : '';
 
     $body = json_encode( array(
         'content' => $content,
         'level'   => 'info',
-        'origin'  => 'WordPress Plugin (Cloud Mode)'
+        'origin'  => 'wordpress'
     ));
 
     $args = array(
