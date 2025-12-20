@@ -10,62 +10,69 @@
 
 **Requires PHP:** 8.0+
 
-**Stable tag:** 0.2.0
+**Stable tag:** 1.1.0
 
 **License:** GPLv2 or later
 
-A developer-focused productivity engine that leverages guided prompting and REST API integration to sync daily engineering logs to the cloud.
+A developer-focused productivity engine that connects your WordPress dashboard to your engineering workflow via GitHub or Cloud API.
 
 ## Description
 
-**Daily Dev Habit** is a WordPress plugin designed to solve the "documentation friction" problem. It replaces the blank page with a guided workflow, helping developers, creators, and engineers document their progress, blockers, and wins.
+**Daily Dev Habit** is a WordPress plugin designed to solve the "documentation friction" problem. It replaces the blank page with a guided workflow, helping developers, creators, and engineers document their progress, blockers, and wins without breaking flow.
 
-Unlike standard journaling plugins that trap data inside the WordPress database, Daily Dev Habit is built with a **Cloud-First** architecture. It offers dual-mode integration: users can strictly manage logs locally (clipboard/text) or authenticate with a remote endpoint to push structured log data to a centralized repository.
+**New in 1.1.0: Two Ways to Save**
+1.  **GitHub Mode (Self-Hosted):** The plugin commits your log entries directly to a private GitHub repository of your choice. You own your data 100%.
+2.  **Cloud Mode (Managed):** Connects to the Daily Dev Habit Cloud API for centralized storage and future analytics/dashboards.
 
 ### Key Features
-* **Guided Prompting:** A structured interface that reduces cognitive load when documenting daily work.
-* **Cloud API Sync:** (New in v0.2.0) A built-in connector that pushes JSON-formatted log entries to a configured external REST API endpoint.
-* **Developer-Centric UI:** Clean, distraction-free interface built to fit into a technical workflow.
+* **Guided Prompting:** A structured interface (Scope, Summary, Blockers) that reduces cognitive load.
+* **Save to GitHub:** Automatically creates a Markdown file in your repo for every entry.
+* **Save to Cloud:** A built-in connector for the DDH Cloud ecosystem.
+* **Distraction-Free UI:** Built to feel like a native part of your engineering toolset.
 
-## Architecture & Engineering
-*Designed with extensibility and data portability in mind.*
-
-* **REST API Integration:** The plugin utilizes `wp_remote_post()` with robust error handling to manage communication between the local WordPress environment and the remote cloud database.
-* **Data Security:** All API transactions are secured using WordPress nonces and sanitized input validation to prevent XSS and unauthorized data injection.
+## The Ecosystem
+This plugin is part of the **Daily Dev Habit** suite, which includes:
+* **The WP Plugin:** For journaling and reflective logging.
+* **The CLI Tool:** A terminal command (`ddh log`) for quick engineering updates right from your code editor.
 
 ## Installation
 
-1.  Upload the `daily-dev-habit` folder to your `/wp-content/plugins/` directory.
+1.  Upload the `daily-devhabit` folder to your `/wp-content/plugins/` directory.
 2.  Activate the plugin through the 'Plugins' menu in WordPress.
-3.  Navigate to **Daily Dev Habit** in the admin menu.
-4.  *(Optional)* Go to the Settings tab to configure your Cloud API Endpoint and Authorization Key.
-
-## Roadmap
-
-* **v0.3.0:** Custom Block Integration (Replacing the current form UI with native Gutenberg blocks).
-* **v0.4.0:** Java Bot Integration (Server-side analysis of log sentiment and productivity trends).
-* **Future:** Visualization dashboard for "Streak" tracking and productivity metrics.
+3.  Navigate to **Daily Dev Log** in the admin menu.
+4.  **Configure your Connection:**
+    * Go to the **Journal Settings** submenu.
+    * Select **Mode:** "GitHub" or "DDH Cloud".
+    * **For GitHub:** Enter your Username, Repo Name, and a Personal Access Token (PAT).
+    * **For Cloud:** Enter your account JWT (available via the CLI).
 
 ## Frequently Asked Questions
 
-**Is an API key required to use the plugin?**
-No. The plugin functions fully as a local prompting tool. The API key is only required if you wish to sync your data to the cloud.
+**Is an API key required?**
+Yes, but you have options. For "GitHub Mode," you use a standard GitHub Personal Access Token (PAT). For "Cloud Mode," you use your DDH account token.
 
 **Where is the data stored?**
-If using "Local Mode," data is generated for your clipboard/local use. If "Cloud Mode" is active, data is pushed to your configured endpoint.
+* **GitHub Mode:** In your own private repository as `.md` files.
+* **Cloud Mode:** Encrypted in the Daily Dev Habit database.
+* **Note:** The plugin does *not* store logs in your WordPress database to keep your site lightweight.
+
+## Screenshots
+
+1.  **The Journal Interface:** Clean prompts to help you document your work.
+2.  **Settings Panel:** Easily toggle between GitHub and Cloud storage.
 
 ## Changelog
 
-**Version 0.2.0**
-* **Architecture Change:** Renamed plugin to `daily-dev-habit`.
-* **New Feature:** Added REST API integration for cloud syncing.
-* **Update:** Refactored codebase for PHP 8.0+ compatibility.
+**Version 1.1.0**
+* **Major Update:** Added "GitHub Mode" to save logs directly to a repository.
+* **New Feature:** Added "Cloud Mode" for DDH API integration.
+* **UI Polish:** Updated settings screen to handle dynamic fields.
+* **Fix:** Removed local log storage in favor of remote APIs.
 
-**Version 0.1.0**
-* Initial release.
-* Added admin page with guided questionnaire.
-* Added "Copy to Clipboard" functionality.
+**Version 0.2.0**
+* Added REST API integration basics.
+* Refactored for PHP 8.0+.
 
 ## Acknowledgments
 Development, architecture, and project lead: **Lauren Bridges**.
-*This project utilizes AI-assisted coding workflows (Google Gemini) for boilerplate generation and documentation support.*
+>>>>>>> dev
