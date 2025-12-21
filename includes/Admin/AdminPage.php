@@ -3,19 +3,19 @@
 if ( ! defined( 'WPINC' ) ) { die; }
 
 /**
- * Renders the Main App Page (The Journal Form)
+ * Renders the Main App Page (The Standup Form)
  * This is the callback used by add_menu_page() in the main plugin file.
  */
 function ddh_render_main_app_page() {
     ?>
     <div class="wrap daily-devhabit-page-wrapper">
-        <h1 class="wp-heading-inline">Dev Journal</h1>
+        <h1 class="wp-heading-inline">Daily Dev Habit</h1>
         <hr class="wp-header-end">
         
         <div id="appContainer" class="devhabit-app-container">
             <p style="text-align: center; color: #64748b; margin-top: 2em;">
                 <span class="dashicons dashicons-update" style="animation: spin 2s linear infinite;"></span>
-                Loading Journal Tool...
+                Loading Standup Tool...
             </p>
         </div>
     </div>

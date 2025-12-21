@@ -32,7 +32,7 @@ A developer-focused productivity engine that connects your WordPress dashboard t
 
 ## The Ecosystem
 This plugin is part of the **Daily Dev Habit** suite, which includes:
-* **The WP Plugin:** For journaling and reflective logging.
+* **The WP Plugin:** An Admin form for Daily Standup.
 * **The CLI Tool:** A terminal command (`ddh log`) for quick engineering updates right from your code editor.
 
 ## Installation
