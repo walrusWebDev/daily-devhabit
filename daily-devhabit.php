@@ -15,31 +15,36 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
-// 1. Constants
+// Constants
 define( 'DDH_VERSION', '1.1.0' );
 define( 'DDH_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DDH_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'DDH_API_URL', 'https://ddh-core-production.up.railway.app' );
 
-// 2. Include Core Logic (The Journal)
+// Include Core Logic (The Journal)
 require_once DDH_PLUGIN_DIR . 'includes/DailyLog.php';       // CPT Registration
-require_once DDH_PLUGIN_DIR . 'includes/Admin/AdminPage.php'; // The Form UI
-require_once DDH_PLUGIN_DIR . 'includes/Admin/Settings.php';  // Log Settings
 
-// 3. Initialize CLI (Only if running via WP-CLI)
+// Admin UI Components
+require_once DDH_PLUGIN_DIR . 'includes/Admin/AdminPage.php'; // Main Dashboard
+require_once DDH_PLUGIN_DIR . 'includes/Admin/Settings.php';  // Settings Form
+require_once DDH_PLUGIN_DIR . 'includes/Admin/HelpPage.php';  // Help & Docs (New!)
+
+// CLI Integration (Only load if running via Terminal)
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
     require_once DDH_PLUGIN_DIR . 'includes/CLI/Commands.php';
 }
 
-// 4. Initialize Settings
+// Initialize Settings
 $ddh_settings = new DailyDevHabit\Admin\Settings();
+// The HelpPage hooks itself into the menu automatically via its constructor
+new DailyDevHabit\Admin\HelpPage();
 
-// 5. Register Admin Menus
+// Register Admin Menus
 function ddh_add_admin_menu() {
-    // Main Menu: The Journal Form
+    // Main Menu: The Standup Form
     add_menu_page(
-        'Daily Dev Log', 
-        'Dev Journal', 
+        'Daily Dev Habit', 
+        'Daily Dev Habit', 
         'manage_options', 
         'ddh-dev-log', 
         'ddh_render_main_app_page', 
@@ -50,21 +55,22 @@ function ddh_add_admin_menu() {
     // Submenu: Settings
     add_submenu_page(
         'ddh-dev-log',
-        'Journal Settings',
+        'Habit Settings',
         'Settings',
         'manage_options',
         'ddh-log-settings',
         [ 'DailyDevHabit\Admin\Settings', 'render_page' ]
     );
 }
-add_action( 'admin_menu', 'ddh_add_admin_menu' );
+add_action( 'admin_menu', 'ddh_add_admin_menu', 9 );
 
-// 6. Enqueue Assets (Scripts & Styles)
+// Enqueue Assets (Scripts & Styles)
 function ddh_enqueue_admin_scripts( $hook ) {
     // Only load on our specific pages
     $allowed_pages = [
         'toplevel_page_ddh-dev-log',
-        'dev-journal_page_ddh-log-settings'
+        'daily-dev-habit_page_ddh-log-settings',
+        'daily-dev-habit_page_ddh-help' // Allow styles on the new Help page too
     ];
 
     if ( ! in_array( $hook, $allowed_pages ) ) {
@@ -74,10 +80,10 @@ function ddh_enqueue_admin_scripts( $hook ) {
     wp_enqueue_style( 'ddh-admin-css', DDH_PLUGIN_URL . 'assets/admin.css', [], DDH_VERSION );
     wp_enqueue_script( 'ddh-admin-js', DDH_PLUGIN_URL . 'assets/admin.js', ['jquery'], DDH_VERSION, true );
 
-    // 1. GET OPTIONS FROM DB
+    // GET OPTIONS FROM DB
     $options = get_option( 'ddh_integration_options' );
     
-    // 2. EXTRACT THE MODE (Default to 'github' if missing)
+    // EXTRACT THE MODE (Default to 'github' if missing)
     $mode = isset( $options['connection_mode'] ) ? $options['connection_mode'] : 'github';
     
     $raw_questions = isset( $options['custom_questions'] ) ? $options['custom_questions'] : '';
@@ -98,7 +104,7 @@ function ddh_enqueue_admin_scripts( $hook ) {
         ];
     }
 
-    // 3. PASS 'mode' TO JAVASCRIPT
+    // PASS 'mode' TO JAVASCRIPT
     wp_localize_script('ddh-admin-js', 'ddh_ajax', array(
         'ajax_url'  => admin_url('admin-ajax.php'),
         'nonce'     => wp_create_nonce('ddh_save_log_nonce'),
@@ -108,7 +114,7 @@ function ddh_enqueue_admin_scripts( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'ddh_enqueue_admin_scripts' );
 
-// 7. Footer Branding
+// Footer Branding
 function ddh_add_footer_link( $text ) {
     $screen = get_current_screen();
     if ( $screen && strpos($screen->id, 'ddh-') !== false ) {
@@ -118,7 +124,7 @@ function ddh_add_footer_link( $text ) {
 }
 add_filter( 'admin_footer_text', 'ddh_add_footer_link' );
 
-// 8. General Initialization
+// General Initialization
 function ddh_init_plugin() {
     load_plugin_textdomain( 'daily-devhabit', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }

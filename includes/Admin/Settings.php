@@ -33,7 +33,7 @@ class Settings {
         // --- FIELD 2: QUESTIONS ---
         add_settings_field(
             'custom_questions',
-            __( 'Journal Prompts', 'daily-devhabit' ),
+            __( 'Standup Prompts', 'daily-devhabit' ),
             [ $this, 'render_questions_field' ],
             'ddh-log-settings',
             'ddh_integration_section'
@@ -52,7 +52,7 @@ class Settings {
     public static function render_page() {
         ?>
         <div class="wrap">
-            <h1>Dev Log Settings</h1>
+            <h1>Daily Dev Habit Settings</h1>
             <form action="options.php" method="post">
                 <?php
                 settings_fields( 'ddh_settings_group' );
