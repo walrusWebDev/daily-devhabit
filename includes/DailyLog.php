@@ -46,7 +46,7 @@ function ddh_send_to_cloud( $content, $options ) {
     $api_url = defined('DDH_API_URL') ? DDH_API_URL . '/entries' : '';
 
     $body = json_encode( array(
-        'content' => $content,
+        'content_html' => $content,
         'level'   => 'info',
         'origin'  => 'wordpress'
     ));

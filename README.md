@@ -75,4 +75,3 @@ Yes, but you have options. For "GitHub Mode," you use a standard GitHub Personal
 
 ## Acknowledgments
 Development, architecture, and project lead: **Lauren Bridges**.
->>>>>>> dev
